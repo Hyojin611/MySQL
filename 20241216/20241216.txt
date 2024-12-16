@@ -1,0 +1,654 @@
+create table 테이블명(
+필드명 타입 제약조건,)
+
+id, name, address, phone
+
+create table telbook(
+id int primary key auto_increment,
+name varchar(20) not null,
+address varchar(200),
+phone varchar
+);
+
+
+
+belong이 dance 또는 sports
+mysql> select*from student
+    -> where belong = 'dance' or belong ='sports';
++----------+--------+--------+-------------+--------+
+| s_id     | name   | belong | phone       | status |
++----------+--------+--------+-------------+--------+
+| 20090301 | 에릭   | DANCE  | 01032424244 |      2 |
+| 20090509 | 셀     | DANCE  | 01032427535 |      3 |
+| 20100204 | 버기   | DANCE  | 01023424343 |      2 |
+| 20100507 | 베지터 | DANCE  | 01023423623 |      2 |
+| 20110103 | 상디   | SPORTS | 01021342443 |      1 |
+| 20110506 | 오천   | SPORTS | 01021334525 |      1 |
++----------+--------+--------+-------------+--------+
+6 rows in set (0.00 sec)
+
+-> where belong in('dance','sports'); 
+
+* in = or
+
+
+
+
+
+s_id 가 2008년 이상이고 2010년 이하인 자료
+where s_id  betwwen '2008' and '2010;
+where s_id >='2008'  and s_id = '2010'
+
+
+
+
+whid character : %, _ (무조건 한글자 가지고 있는  
+where 필드명 like '_' 
+
+mysql> select name from student where name like '_';
++------+
+| name |
++------+
+| 셀   |
++------+
+1 row in set (0.00 sec)
+
+
+
+
+
+mysql> select * from student
+    -> where belong like '%S%';
++----------+--------+---------+-------------+--------+
+| s_id     | name   | belong  | phone       | status |
++----------+--------+---------+-------------+--------+
+| 20090105 | 쵸파   | MUSIC   | 01012342433 |      3 |
+| 20090503 | 피콜로 | MUSIC   | 01013634645 |      3 |
+| 20100102 | 조로   | MUSIC   | 01023435343 |      2 |
+| 20100505 | 오공   | MUSIC   | 01023534644 |      2 |
+| 20110103 | 상디   | SPORTS  | 01021342443 |      1 |
+| 20110106 | 프랑키 | ENGLISH | 01034343222 |      1 |
+| 20110502 | 부우   | ENGLISH | 01034332634 |      1 |
+| 20110506 | 오천   | SPORTS  | 01021334525 |      1 |
++----------+--------+---------+-------------+--------+
+8 rows in set (0.00 sec)
+
+
+
+
+S 또는 C
+
+mysql> select * from student
+    -> where belong in ('%S%');
+Empty set (0.00 sec) 
+
+* in ()안에 와일드카드는x 정확한 문자가 들어가야함.
+
+mysql> select * from student
+    -> where belong like '%S%' or belong like '%C%';
++----------+--------+----------+-------------+--------+
+| s_id     | name   | belong   | phone       | status |
++----------+--------+----------+-------------+--------+
+| 20080104 | 나미   | COMPUTER | 01023432432 |      3 |
+| 20080501 | 크리링 | COMPUTER | 01023436346 |      2 |
+| 20090101 | 루피   | COMPUTER | 01012345678 |      1 |
+| 20090105 | 쵸파   | MUSIC    | 01012342433 |      3 |
+| 20090301 | 에릭   | DANCE    | 01032424244 |      2 |
+| 20090302 | 전진   | COMPUTER | 01012321313 |      3 |
+| 20090503 | 피콜로 | MUSIC    | 01013634645 |      3 |
+| 20090509 | 셀     | DANCE    | 01032427535 |      3 |
+| 20100102 | 조로   | MUSIC    | 01023435343 |      2 |
+| 20100204 | 버기   | DANCE    | 01023424343 |      2 |
+| 20100505 | 오공   | MUSIC    | 01023534644 |      2 |
+| 20100507 | 베지터 | DANCE    | 01023423623 |      2 |
+| 20110103 | 상디   | SPORTS   | 01021342443 |      1 |
+| 20110106 | 프랑키 | ENGLISH  | 01034343222 |      1 |
+| 20110502 | 부우   | ENGLISH  | 01034332634 |      1 |
+| 20110506 | 오천   | SPORTS   | 01021334525 |      1 |
++----------+--------+----------+-------------+--------+
+16 rows in set (0.00 sec)
+
+
+
+selet * from student
+where name >=10
+
+
+staus 2 또는 3인 자료 중에 ( in)
+belong에 C를 포함하는 자료들을 (like) 
+s_id, name, belong, stauts를 출력
+name에 대해서 내림차순으로 출력
+
+select s_id, name, belong, status from student
+where status in (2 ,3) and belong like '%C%'
+order by name desc;
+
+
+mysql> select s_id, name, belong, status from student
+    -> where status in (2 ,3) and belong like '%C%'
+    -> order by name desc;
++----------+--------+----------+--------+
+| s_id     | name   | belong   | status |
++----------+--------+----------+--------+
+| 20090503 | 피콜로 | MUSIC    |      3 |
+| 20080501 | 크리링 | COMPUTER |      2 |
+| 20090105 | 쵸파   | MUSIC    |      3 |
+| 20100102 | 조로   | MUSIC    |      2 |
+| 20090302 | 전진   | COMPUTER |      3 |
+| 20100505 | 오공   | MUSIC    |      2 |
+| 20090301 | 에릭   | DANCE    |      2 |
+| 20090509 | 셀     | DANCE    |      3 |
+| 20100507 | 베지터 | DANCE    |      2 |
+| 20100204 | 버기   | DANCE    |      2 |
+| 20080104 | 나미   | COMPUTER |      3 |
++----------+--------+----------+--------+
+11 rows in set (0.00 sec)
+
+
+
+
+select s_id as ID, name as 이름, belong as 소속, status as 상태  from student
+where status in (2 ,3) and belong like '%C%'
+order by name desc;
+
+
+
+
+
+삭제 / 수정은 완전히 조심 !!!!
+
+drop : 완전히 구조까지 삭제
+delete : 내용만 삭제하는 것 ---- 조건을 주는 것을 명심. 
+
+ mysql> select *from student;
++----------+-----------+----------+-------------+--------+
+| s_id     | name      | belong   | phone       | status |
++----------+-----------+----------+-------------+--------+
+| 20080104 | 나미      | COMPUTER | 01023432432 |      3 |
+| 20080501 | 크리링    | COMPUTER | 01023436346 |      2 |
+| 20090101 | 루피      | COMPUTER | 01012345678 |      1 |
+| 20090105 | 쵸파      | MUSIC    | 01012342433 |      3 |
+| 20090301 | 에릭      | DANCE    | 01032424244 |      2 |
+| 20090302 | 전진      | COMPUTER | 01012321313 |      3 |
+| 20090503 | 피콜로    | MUSIC    | 01013634645 |      3 |
+| 20090509 | 셀        | DANCE    | 01032427535 |      3 |
+| 20100102 | 조로      | MUSIC    | 01023435343 |      2 |
+| 20100204 | 버기      | DANCE    | 01023424343 |      2 |
+| 20100505 | 오공      | MUSIC    | 01023534644 |      2 |
+| 20100507 | 베지터    | DANCE    | 01023423623 |      2 |
+| 20110103 | 상디      | SPORTS   | 01021342443 |      1 |
+| 20110106 | 프랑키    | ENGLISH  | 01034343222 |      1 |
+| 20110502 | 부우      | ENGLISH  | 01034332634 |      1 |
+| 20110506 | 오천      | SPORTS   | 01021334525 |      1 |
++----------+-----------+----------+-------------+--------+
+16 rows in set (0.00 sec)
+
+mysql> delete from student where name = '나미';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from student;
++----------+-----------+----------+-------------+--------+
+| s_id     | name      | belong   | phone       | status |
++----------+-----------+----------+-------------+--------+
+| 20080501 | 크리링    | COMPUTER | 01023436346 |      2 |
+| 20090101 | 루피      | COMPUTER | 01012345678 |      1 |
+| 20090105 | 쵸파      | MUSIC    | 01012342433 |      3 |
+| 20090301 | 에릭      | DANCE    | 01032424244 |      2 |
+| 20090302 | 전진      | COMPUTER | 01012321313 |      3 |
+| 20090503 | 피콜로    | MUSIC    | 01013634645 |      3 |
+| 20090509 | 셀        | DANCE    | 01032427535 |      3 |
+| 20100102 | 조로      | MUSIC    | 01023435343 |      2 |
+| 20100204 | 버기      | DANCE    | 01023424343 |      2 |
+| 20100505 | 오공      | MUSIC    | 01023534644 |      2 |
+| 20100507 | 베지터    | DANCE    | 01023423623 |      2 |
+| 20110103 | 상디      | SPORTS   | 01021342443 |      1 |
+| 20110106 | 프랑키    | ENGLISH  | 01034343222 |      1 |
+| 20110502 | 부우      | ENGLISH  | 01034332634 |      1 |
+| 20110506 | 오천      | SPORTS   | 01021334525 |      1 |
++----------+-----------+----------+-------------+--------+
+15 rows in set (0.00 sec)
+
+
+폰 번호 중에 343을 포함하는 자료를 삭제 
+delete from student where phone like '%343%';
+
+
+drop table 테이블명;
+drop databases 데이터베이스명;
+
+
+update 구문 --항상 조건을 달아서 처리 
+update 테이블명 
+            set 필드명1 = 값,
+	     필드명2 =값
+where 필드명 조건...
+
+
+
+
+mysql> update student set phone='010-1111-2222';
+Query OK, 16 rows affected (0.01 sec)
+Rows matched: 16  Changed: 16  Warnings: 0
+
+mysql> select *from student;
++----------+-----------+----------+---------------+--------+
+| s_id     | name      | belong   | phone         | status |
++----------+-----------+----------+---------------+--------+
+| 20080104 | 나미      | COMPUTER | 010-1111-2222 |      3 |
+| 20080501 | 크리링    | COMPUTER | 010-1111-2222 |      2 |
+| 20090101 | 루피      | COMPUTER | 010-1111-2222 |      1 |
+| 20090105 | 쵸파      | MUSIC    | 010-1111-2222 |      3 |
+| 20090301 | 에릭      | DANCE    | 010-1111-2222 |      2 |
+| 20090302 | 전진      | COMPUTER | 010-1111-2222 |      3 |
+| 20090503 | 피콜로    | MUSIC    | 010-1111-2222 |      3 |
+| 20090509 | 셀        | DANCE    | 010-1111-2222 |      3 |
+| 20100102 | 조로      | MUSIC    | 010-1111-2222 |      2 |
+| 20100204 | 버기      | DANCE    | 010-1111-2222 |      2 |
+| 20100505 | 오공      | MUSIC    | 010-1111-2222 |      2 |
+| 20100507 | 베지터    | DANCE    | 010-1111-2222 |      2 |
+| 20110103 | 상디      | SPORTS   | 010-1111-2222 |      1 |
+| 20110106 | 프랑키    | ENGLISH  | 010-1111-2222 |      1 |
+| 20110502 | 부우      | ENGLISH  | 010-1111-2222 |      1 |
+| 20110506 | 오천      | SPORTS   | 010-1111-2222 |      1 |
++----------+-----------+----------+---------------+--------+
+16 rows in set (0.00 sec)
+
+=============================================
+
+조로(s_id : 20100102)의 belong을 DANCE변경 
+뮤직 -> 댄스 
+
+update student set belong = 'DANCE'
+where s_id = '20100102';
+
+==============================================
+
+name이 오공친구의
+belong = 'Golf', phone ='119'    으로 변경
+
+
+update student set belong = 'Golf' , phone ='119'
+where name ='오공';
+
+===============================================
+
+CRUD
+C : Create (Insert into ..구문)
+R: Read(Select *from 테이블명 ..구문)
+U : Update(Update table... 명 구문)
+D : Delete(Delete from table.. 명 구문)
+
+
+===============================================
+**문제 **
+
+dept 테이블 생성( 
+-dept _id :기본키, 자동증가
+-dept _name :문자  not null
+-dept _loc :문자  not null 
+
+data 입력
+1. 기획부 서울
+2. 영업1부 서울
+3. 영업2부 부산
+4. 영업3부 대구
+5. 관리부 서울 
+
+출력
+전체 영업부 자료를 ID, NAME, LOCATION을 필드명으로 출력
+
+영업 3부 삭제
+
+관리부의 지역을 제주도로 변경 
+
+
+==>
+create table dept(
+dept_id int primary key auto_increment,
+dept_name varchar(20) not null,
+dept_loc varchar(20) not null
+);
+
+insert into dept (dept_name, dept_loc)
+values('기획부','서울'),
+('영업1부','서울'),
+('영업2부','부산'),
+('영업3부','대구'),
+('관리부','서울');
+
+select dept_id as ID ,dept_name as NAME, dept_loc as LOCATION from dept
+where dept_name like '영업%';
+
+
+delete from dept where dept_name = '영업3부';
+
+
+update dept set dept_loc = '제주도'
+where dept_name ='관리부';
+
+
+================================================================
+
+
+구조변경 구문
+
+--modify :필드명을 못 바꾸는것
+alter table 테이블명
+modify column 원래이름 타입..
+
+
+
+change : 필드명까지 바꾸는 것
+alter table 테이블명
+modify column 원래이름 바꿀이름 타입..
+
+
+
+mysql> alter table dept  
+    -> change column dept_name name varchar(50);     // dept_name -> name , varchar(20) -> (50)
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| dept_id  | int         | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(50) | YES  |     | NULL    |                |
+| dept_loc | varchar(20) | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+
+
+
+기본함수 
+sum, avg ,count , max, min 
+
+
+연산조건으로 묶을 그룹 지정 : group by
+묶은 그룹의 결과에 대한 별도의 조건을 지정 : having
+
+
+mysql> select *from student;
++----------+-----------+----------+-------------+--------+
+| s_id     | name      | belong   | phone       | status |
++----------+-----------+----------+-------------+--------+
+| 20080104 | 나미      | COMPUTER | 01023432432 |      3 |
+| 20080501 | 크리링    | COMPUTER | 01023436346 |      2 |
+| 20090101 | 루피      | COMPUTER | 01012345678 |      1 |
+| 20090105 | 쵸파      | MUSIC    | 01012342433 |      3 |
+| 20090301 | 에릭      | DANCE    | 01032424244 |      2 |
+| 20090302 | 전진      | COMPUTER | 01012321313 |      3 |
+| 20090503 | 피콜로    | MUSIC    | 01013634645 |      3 |
+| 20090509 | 셀        | DANCE    | 01032427535 |      3 |
+| 20100102 | 조로      | DANCE    | 01023435343 |      2 |
+| 20100204 | 버기      | DANCE    | 01023424343 |      2 |
+| 20100505 | 오공      | Golf     | 119         |      2 |
+| 20100507 | 베지터    | DANCE    | 01023423623 |      2 |
+| 20110103 | 상디      | SPORTS   | 01021342443 |      1 |
+| 20110106 | 프랑키    | ENGLISH  | 01034343222 |      1 |
+| 20110502 | 부우      | ENGLISH  | 01034332634 |      1 |
+| 20110506 | 오천      | SPORTS   | 01021334525 |      1 |
++----------+-----------+----------+-------------+--------+
+16 rows in set (0.00 sec)
+
+mysql> select count(name) from student;       
++-------------+
+| count(name) |
++-------------+
+|          16 |
++-------------+
+1 row in set (0.01 sec)
+
+ 
+mysql> select count(*) from student;
++----------+
+| count(*) |
++----------+
+|       16 |
++----------+
+1 row in set (0.00 sec)
+
+
+mysql> select count(*) as TatalRow from student;
++----------+
+| TatalRow |
++----------+
+|       16 |
++----------+
+1 row in set (0.00 sec)
+
+
+소속이 컴퓨터인 아이들
+mysql> select count(*) as count from student where belong = 'COMPUTER';
++-------+
+| count |
++-------+
+|     4 |
++-------+
+1 row in set (0.00 sec)
+
+
+
+Belong    	count
+==================
+computer 	4
+dance 		2
+sports 		3 
+이렇게 출력 하고 싶을 때 
+
+
+
+mysql> select belong as Belong, count(*) as Count from student
+    -> group by belong;
++----------+-------+
+| Belong   | Count |
++----------+-------+
+| COMPUTER |     4 |
+| MUSIC    |     2 |
+| DANCE    |     5 |
+| Golf     |     1 |
+| SPORTS   |     2 |
+| ENGLISH  |     2 |
++----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select belong as Belong, count(*) as Count from student
+group by belong
+oredr by belong asc;
+
+
+select belong as Belong, count(*) as Count from student
+group by belong
+oredr by count(*) asc;
+
+
+
+select belong as Belong, count(*) as BelongCount from student
+group by belong
+oredr by BelongCount asc;
+
+
+select belong as Belong, count(*) as BelongCount from student
+group by belong
+having BelongCount >=3
+order by belong asc;
+
+
+소속이 Computer 또는 Dance 그룹의 학생 수를
+학생수의 내림차순으로 출력 
+
+mysql> select  belong, count(*) as groupCount  from student
+    -> where belong in ('Computer','Dance')
+    -> group by belong
+    -> order by groupCount desc;
++----------+------------+
+| belong   | groupCount |
++----------+------------+
+| DANCE    |          5 |
+| COMPUTER |          4 |
++----------+------------+
+2 rows in set (0.00 sec)
+
+
+select  belong, count(*) as groupCount  from student 
+where belong in ('Computer','Dance')      
+group by belong
+having groupCount >=5
+order by groupCount desc;
++--------+------------+
+| belong | groupCount |
++--------+------------+
+| DANCE  |          5 |
++--------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+**소속으로 묶어준 후에  소속인원수, status 합을구해주기
+
+select belong as 소속, count(*) 인원수, sum(status) as 합
+from student
+group by belong;
+
++----------+-----------+------+
+| 소속     | 인원수    | 합   |
++----------+-----------+------+
+| COMPUTER |         4 |    9 |
+| MUSIC    |         2 |    6 |
+| DANCE    |         5 |   11 |
+| Golf     |         1 |    2 |
+| SPORTS   |         2 |    2 |
+| ENGLISH  |         2 |    2 |
++----------+-----------+------+
+6 rows in set (0.00 sec)
+
+
+** 합계에 대해서 내림차순
+
+select belong as 소속, count(*) 인원수, sum(status) as 합
+from student
+group by belong
+order by 합 desc;
+
++----------+-----------+------+
+| 소속     | 인원수    | 합   |
++----------+-----------+------+
+| DANCE    |         5 |   11 |
+| COMPUTER |         4 |    9 |
+| MUSIC    |         2 |    6 |
+| Golf     |         1 |    2 |
+| SPORTS   |         2 |    2 |
+| ENGLISH  |         2 |    2 |
++----------+-----------+------+
+6 rows in set (0.00 sec)
+
+
+
+
+mysql> select count(*), max(status),min(status),sum(status),avg(status)
+    -> from student
+    -> group by belong;
++----------+-------------+-------------+-------------+-------------+
+| count(*) | max(status) | min(status) | sum(status) | avg(status) |
++----------+-------------+-------------+-------------+-------------+
+|        4 |           3 |           1 |           9 |      2.2500 |
+|        2 |           3 |           3 |           6 |      3.0000 |
+|        5 |           3 |           2 |          11 |      2.2000 |
+|        1 |           2 |           2 |           2 |      2.0000 |
+|        2 |           1 |           1 |           2 |      1.0000 |
+|        2 |           1 |           1 |           2 |      1.0000 |
++----------+-------------+-------------+-------------+-------------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+-distinct : 중복을 제외한 데이터만..
+-limit : 가지고올 갯수
+-offset :가지고 오기 시작한  . 0번부터 시작 
+select distinct *
+
+
+
+mysql> select * from student limit 3 offset 0;               // 0번째부터 3개 가져오기 
++----------+-----------+----------+-------------+--------+
+| s_id     | name      | belong   | phone       | status |
++----------+-----------+----------+-------------+--------+
+| 20080104 | 나미      | COMPUTER | 01023432432 |      3 |
+| 20080501 | 크리링    | COMPUTER | 01023436346 |      2 |
+| 20090101 | 루피      | COMPUTER | 01012345678 |      1 |
++----------+-----------+----------+-------------+--------+
+3 rows in set (0.00 sec)
+ 
+
+=========================================================
+아이돌그룹 테이블 만들기   //github  girlgroup  2개 파일 받아서 db 파일에
+
+mysql -u root - p
+111
+
+mysql> create database idolgroup;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| idolgroup          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| test_db            |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql>  use idolgroup;
+Database changed
+
+
+mysql> source C:/$_HYOJIN/db/girl_song_schema.sql
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> source C:/$_HYOJIN/db/girl_song_data.sql
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select* from song;
++-----+--------------------+---------------------------------------------------+
+| _id | title              | lyrics                                            |
++-----+--------------------+---------------------------------------------------+
+| 101 | Tell Me            | tell me tell me tetetete tel me                   |
+| 102 | Gee                | GEE GEE GEE GEE GEE BABY BABY                     |
+| 103 | 미스터             | 이름이 뭐야 미스터                                |
+| 104 | Abracadabra        | 이러다 미쳐 내가 여리여리                         |
+| 105 | 8282               | Give me a call Baby baby                          |
+| 106 | 기대해             | 기대해                                            |
+| 107 | I Don't car        | 다른 여자들의 다리를                              |
+| 108 | Bad Girl Good Girl | 앞에선 한 마디 말도                               |
+| 109 | 피노키오           | 뉴예삐오                                          |
+| 110 | 별빛달빛           | 너는 내 별빛 내 마음의 별빛                       |
+| 111 | A                  | A 워오우 워오우워 우우우                          |
+| 112 | 나혼자             | 나 혼자 밥을 먹고 나 혼자 영화 보고               |
+| 113 | LUV                | 설레이나요                                        |
+| 114 | 짧은치마           | 짧은 치마를 입고 내가 길을 걸으면                 |
+| 115 | 위아래             | 위 아래 위위 아래                                 |
+| 116 | Dumb Dumb          | 너 땜에 하루종일                                  |
++-----+--------------------+---------------------------------------------------+
+16 rows in set (0.00 sec)
+
+
+https://app.diagrams.net/    - ER
+
+svg 타입으로 저장  - 화면 안깨짐 
+
