@@ -1,0 +1,157 @@
+create table dept(
+dep_no int primary key,
+dep_name varchar(10),
+loc varchar(10) not null);
+
+
+create table employee(
+emp_no int primary key auto_increment,
+emp_name varchar(10) not null,
+dep_no int,
+position varchar(10) not null,
+salsry int default 0,
+hire_date date default (current_date),
+jumin_num char(13) not null unique,
+phone_num varchar(15) not null,
+mgr_emp_no int);
+
+
+create table customer(
+cus_no int primary key auto_increment,
+cus_name varchar(10) not  null,
+tel_num varchar(15),
+jumin_num char(13) not null,
+emp_no int);
+
+
+
+create table salary_grade(
+sal_grande_no int primary key,
+min_sal int not null,
+max_sal int not null);
+
+=====================================================================
+mysql> create database pandb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| idolgroup          |
+| information_schema |
+| mysql              |
+| pandb              |
+| performance_schema |
+| phone_book_db      |
+| sakila             |
+| sys                |
+| test_db            |
+| world              |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> create user user1@'%' identified by '1111';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all privileges on pnadb.* to user1@'%' with grant option;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for 'user1'@'%';
++--------------------------------------------------------------------+
+| Grants for user1@%                                                 |
++--------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user1`@`%`                                  |
+| GRANT ALL PRIVILEGES ON `pnadb`.* TO `user1`@`%` WITH GRANT OPTION |
++--------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> ^C
+mysql>
+mysql>
+mysql> create table dept(
+    -> dep_no int primary key,
+    -> dep_name varchar(10,
+    -> ^C
+mysql>
+mysql>
+mysql> create table dept(
+    -> dep_no int primary key,
+    -> dep_name varchar(10),
+    -> loc varchar(10) not null);
+ERROR 1046 (3D000): No database selected
+mysql> use pandb;
+Database changed
+mysql> create table dept(
+    -> dep_no int primary key,
+    -> dep_name varchar(10),
+    -> loc varchar(10) not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_pandb |
++-----------------+
+| dept            |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> create table employee(
+    -> emp_no int primary key auto_increment,
+    -> emp_name varchar(10) not null,
+    -> dep_no int,
+    -> position varchar(10) not null,
+    -> salsry int default 0,
+    -> hire_date date default (current_date),
+    -> jumin_num char(13) not null unique,
+    -> phone_num varchar(15) not null,
+    -> mgr_emp_no int);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql>
+mysql> show tables;
++-----------------+
+| Tables_in_pandb |
++-----------------+
+| dept            |
+| employee        |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> create table customer(
+    -> cus_no int primary key auto_increment,
+    -> cus_name varchar(10) not  null,
+    -> tel_num varchar(15),
+    -> jumin_num char(13) not null,
+    -> emp_no int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;'
++-----------------+
+| Tables_in_pandb |
++-----------------+
+| customer        |
+| dept            |
+| employee        |
++-----------------+
+3 rows in set (0.00 sec)
+
+    '> ^C
+mysql> create table salary_grade(
+    -> sal_grande_no int primary key,
+    -> min_sal int not null,
+    -> max_sal int not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> ^C
+mysql> ^C
+mysql> show tables;
++-----------------+
+| Tables_in_pandb |
++-----------------+
+| customer        |
+| dept            |
+| employee        |
+| salary_grade    |
++-----------------+
+4 rows in set (0.00 sec)
